@@ -6,7 +6,7 @@ describe('SonicGameBridge', () => {
   const deployBridgeContractFixture = async () => {
     const [owner, player] = await ethers.getSigners();
 
-    const Sonic = await ethers.getContractFactory('Sonic');
+    const Sonic = await ethers.getContractFactory('SonicFakeToken');
     const sonic = await Sonic.deploy();
 
     const SonicGameBridge = await ethers.getContractFactory('SonicGameBridge');
