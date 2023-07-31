@@ -10,7 +10,7 @@ async function main() {
 
   const game = await ethers.getContractAt(
     'SonicGame',
-    '0x79cBc39870C6C38C6Ac7178dBf2F3465815Be6e4'
+    process.env.GAME_CONTRACT_ADDRESS as string
   );
 
   const [owner] = await ethers.getSigners();

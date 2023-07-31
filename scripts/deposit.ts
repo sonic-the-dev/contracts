@@ -10,12 +10,12 @@ async function main() {
 
   const sonic = await ethers.getContractAt(
     'SonicFakeToken',
-    '0x9bBBB736576cc6dBFEC4174811131157906ac84E'
+    process.env.SONIC_TOKEN_ADDRESS as string
   );
 
   const bridge = await ethers.getContractAt(
     'SonicGameBridge',
-    '0x36b3CB006e638F56b954255b2A668476713975B1'
+    process.env.BRIDGE_CONTRACT_ADDRESS as string
   );
 
   const [owner] = await ethers.getSigners();
@@ -34,7 +34,7 @@ async function main() {
     await sonic.approve(await bridge.getAddress(), balance);
   }
 
-  await bridge.deposit(depositAmount);
+  await bridge['deposit(uint256)'](depositAmount);
 
   console.log(`Deposited ${depositAmount} SONIC tokens in bridge`);
 }
