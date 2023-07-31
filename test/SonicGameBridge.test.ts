@@ -54,7 +54,7 @@ describe('SonicGameBridge', () => {
         .connect(player)
         .approve(await sonicGameBridge.getAddress(), depositAmount);
 
-      await sonicGameBridge.connect(player).deposit(depositAmount);
+      await sonicGameBridge.connect(player)['deposit(uint256)'](depositAmount);
 
       const playerSonicBalance = await sonic.balanceOf(playerAddress);
       expect(playerSonicBalance).to.equal(0);
@@ -106,7 +106,7 @@ describe('SonicGameBridge', () => {
         .approve(await sonicGameBridge.getAddress(), depositAmount);
 
       // deposit SONIC to sonicGameBridge
-      await sonicGameBridge.connect(player).deposit(depositAmount);
+      await sonicGameBridge.connect(player)['deposit(uint256)'](depositAmount);
       expect(await sonicGameBridge.balanceOf(playerAddress)).to.equal(
         depositAmount
       );

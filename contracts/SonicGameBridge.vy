@@ -2,6 +2,7 @@ from vyper.interfaces import ERC20
 
 event Deposit:
   user: indexed(address)
+  godfather: address
   amount: uint256
 
 event Withdraw:
@@ -23,10 +24,10 @@ def __init__(_bridgedCoin: address):
 
 @external
 @nonreentrant("deposit")
-def deposit(_amount: uint256) -> bool:
+def deposit(_amount: uint256, _godfather: address = empty(address)) -> bool:
   self.balanceOf[msg.sender] += _amount
   self.bridgedCoin.transferFrom(msg.sender, self, _amount)
-  log Deposit(msg.sender, _amount)
+  log Deposit(msg.sender, _godfather, _amount)
   return True
 
 @external
