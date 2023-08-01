@@ -4,8 +4,8 @@ import { ethers } from 'hardhat';
 const network = process.env.HARDHAT_NETWORK;
 
 async function main() {
-  if (network !== 'arbitrumGoerli') {
-    throw new Error('This script should only be run on arbitrumGoerli for now');
+  if (network !== 'sepolia') {
+    throw new Error('This script should only be run on sepolia for now');
   }
 
   const sonic = await ethers.getContractAt(

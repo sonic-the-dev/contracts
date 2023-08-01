@@ -5,8 +5,9 @@
     "typechain": "hardhat typechain",
     "test": "hardhat test",
     "build": "yarn compile && yarn typechain && yarn test",
-    "deploy:dev": "hardhat run scripts/deploy.ts --network arbitrumGoerli",
-    "deploy:prod": "hardhat run scripts/deploy.ts --network arbitrum",
+    "deploy:dev:game": "hardhat run scripts/deploy-game.ts --network arbitrumGoerli",
+    "deploy:dev:bridge": "hardhat run scripts/deploy-bridge.ts --network sepolia",
+    "deploy:dev": "yarn deploy:dev:game && yarn deploy:dev:bridge",
     "lint": "eslint --ext .js,.ts,.tsx ."
   },
   "devDependencies": {
