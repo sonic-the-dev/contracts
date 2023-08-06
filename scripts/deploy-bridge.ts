@@ -4,19 +4,26 @@ import { ethers } from 'hardhat';
 const network = process.env.HARDHAT_NETWORK;
 
 async function main() {
-  if (network !== 'sepolia') {
-    throw new Error('This script should only be run on sepolia for now');
+  let sonicAddress: string | null = null;
+
+  if (network === 'sepolia') {
+    const sonic = await ethers.deployContract('SonicFakeToken');
+    await sonic.waitForDeployment();
+    console.log(`SonicFakeToken deployed to: ${sonic.target}`);
+    sonicAddress = await sonic.getAddress();
   }
 
-  const sonic = await ethers.deployContract('SonicFakeToken');
-  await sonic.waitForDeployment();
-  console.log(`SonicFakeToken deployed to: ${sonic.target}`);
+  if (network === 'ethereum') {
+    sonicAddress = '0x6D56cdDd23a693ED3851fA0A5d8c67A8739537C8';
+  }
 
-  const bridge = await ethers.deployContract('SonicGameBridge', [
-    await sonic.getAddress(),
-  ]);
+  if (!sonicAddress) {
+    throw new Error('Sonic address not found');
+  }
 
+  const bridge = await ethers.deployContract('SonicGameBridge', [sonicAddress]);
   await bridge.waitForDeployment();
+
   console.log(`SonicGameBridge deployed to: ${bridge.target}`);
 }
 

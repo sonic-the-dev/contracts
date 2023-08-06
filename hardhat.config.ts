@@ -7,6 +7,11 @@ const config: HardhatUserConfig = {
   solidity: '0.8.19',
   vyper: { version: '0.3.7' },
   networks: {
+    ethereum: {
+      url: process.env.ETHEREUM_RPC_URL,
+      chainId: 1,
+      accounts: [process.env.PRIVATE_KEY as string],
+    },
     arbitrum: {
       url: process.env.ARBITRUM_RPC_URL,
       chainId: 42161,
